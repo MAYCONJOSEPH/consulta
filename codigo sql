@@ -1,0 +1,52 @@
+-- Tabela Paciente
+CREATE TABLE Paciente (
+    ID_Paciente INT PRIMARY KEY,
+    Nome VARCHAR(100),
+    DataNascimento DATE,
+    Genero VARCHAR(20),
+    Endereco VARCHAR(255),
+    Telefone VARCHAR(20),
+    Email VARCHAR(100)
+);
+
+-- Tabela Médico
+CREATE TABLE Medico (
+    ID_Medico INT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Especialidade VARCHAR(100),
+    Endereco VARCHAR(255),
+    Telefone VARCHAR(20),
+    Email VARCHAR(100)
+);
+
+-- Tabela Consulta
+CREATE TABLE Consulta (
+    ID_Consulta INT PRIMARY KEY,
+    DataHora DATETIME,
+    ID_Paciente INT,
+    ID_Medico INT,
+    Observacoes TEXT,
+    Diagnostico TEXT,
+    FOREIGN KEY (ID_Paciente) REFERENCES Paciente(ID_Paciente),
+    FOREIGN KEY (ID_Medico) REFERENCES Medico(ID_Medico)
+);
+
+-- Tabela Prescrição
+CREATE TABLE Prescricao (
+    ID_Prescricao INT PRIMARY KEY,
+    ID_Consulta INT,
+    Medicamento VARCHAR(100),
+    Dosagem VARCHAR(50),
+    Instrucoes TEXT,
+    FOREIGN KEY (ID_Consulta) REFERENCES Consulta(ID_Consulta)
+);
+
+-- Tabela Exame
+CREATE TABLE Exame (
+    ID_Exame INT PRIMARY KEY,
+    TipoExame VARCHAR(100),
+    Resultado TEXT,
+    ID_Paciente INT,
+    DataExame DATE,
+    FOREIGN KEY (ID_Paciente) REFERENCES Paciente(ID_Paciente)
+);
